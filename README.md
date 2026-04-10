@@ -2,11 +2,11 @@
 
 # ContextKit
 
-**Generate the perfect CLAUDE.md for any project in 30 seconds.**
+**Generate and analyze AI coding configs in seconds.**
 
-Free config generator for Claude Code, Cursor, GitHub Copilot, and Gemini CLI. Answer 5 questions, get a production-ready config file.
+Free tools for Claude Code, Cursor, GitHub Copilot, and Gemini CLI. Generate production-ready config files or score your existing CLAUDE.md.
 
-[**Generate your config**](https://nova-labs.dev/contextkit/generate) · [Website](https://nova-labs.dev/contextkit) · [Blog](https://nova-labs.dev/blog)
+[**Generate your config**](https://nova-labs.dev/contextkit/generate) · [**Analyze your CLAUDE.md**](https://nova-labs.dev/contextkit/analyze) · [Website](https://nova-labs.dev/contextkit) · [Blog](https://nova-labs.dev/blog)
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fnova-labs.dev%2Fcontextkit%2Fgenerate&label=generator)](https://nova-labs.dev/contextkit/generate)
@@ -25,9 +25,13 @@ Writing these from scratch means:
 - Copy-pasting from old projects and hoping it still works
 - Spending 20 minutes on something that should take 30 seconds
 
-ContextKit generates these files automatically, tailored to your exact stack.
+And even if you already have a config file — how do you know if it's actually good?
+
+ContextKit solves both: **generate** new configs automatically, or **analyze** your existing ones to find what's missing.
 
 ## Features
+
+### Generator
 
 | Feature | Description |
 |---------|-------------|
@@ -40,13 +44,32 @@ ContextKit generates these files automatically, tailored to your exact stack.
 | **Copy & download** | One-click clipboard copy or file download |
 | **No account needed** | Runs in your browser, no signup |
 
+### Analyzer
+
+| Feature | Description |
+|---------|-------------|
+| **Score out of 10** | Get an overall quality score for your CLAUDE.md |
+| **5 categories** | Structure, Architecture, Conventions, Testing, Guardrails |
+| **Actionable feedback** | Specific suggestions for each category on what to add or improve |
+| **Paste or upload** | Drop in your existing CLAUDE.md content and get instant results |
+| **No account needed** | Runs in your browser, no signup |
+
 ## Quick start
+
+### Generate a new config
 
 1. Open [nova-labs.dev/contextkit/generate](https://nova-labs.dev/contextkit/generate)
 2. Pick your language and framework
 3. Choose project type, testing, and conventions
 4. Select export format (CLAUDE.md, .cursorrules, AGENTS.md, or GEMINI.md)
 5. Copy to clipboard or download
+
+### Analyze your existing CLAUDE.md
+
+1. Open [nova-labs.dev/contextkit/analyze](https://nova-labs.dev/contextkit/analyze)
+2. Paste your CLAUDE.md content
+3. Get a score out of 10 across 5 categories
+4. Follow the suggestions to improve your config
 
 ## What it generates
 
@@ -87,7 +110,7 @@ Send it to a teammate — they'll see your exact configuration pre-filled, ready
 
 ## Privacy
 
-**Zero data collection.** ContextKit has no backend. The entire wizard runs as client-side JavaScript. Nothing is sent to any server.
+**Zero data collection.** ContextKit has no backend. The entire wizard and analyzer run as client-side JavaScript. Nothing is sent to any server.
 
 ## Tech stack
 
@@ -101,6 +124,7 @@ Issues and PRs welcome. Especially helpful:
 - New language/framework templates
 - Convention suggestions
 - Export format improvements
+- Analyzer category refinements
 
 ## License
 
