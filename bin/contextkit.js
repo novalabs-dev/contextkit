@@ -157,6 +157,11 @@ if (command === 'score') {
 
   if (target === '--stdin') {
     // Read from stdin
+    if (process.stdin.isTTY) {
+      console.error(`${YELLOW}Hint: --stdin expects piped input.${RESET}`);
+      console.error(`${DIM}Example: cat CLAUDE.md | contextkit score --stdin${RESET}`);
+      process.exit(1);
+    }
     let data = '';
     process.stdin.setEncoding('utf8');
     process.stdin.on('data', chunk => { data += chunk; });
@@ -210,7 +215,9 @@ function findConfigFile() {
   ];
   for (const name of candidates) {
     const full = path.resolve(process.cwd(), name);
-    if (fs.existsSync(full)) return full;
+    try {
+      if (fs.existsSync(full) && fs.statSync(full).isFile()) return full;
+    } catch { /* skip */ }
   }
   return null;
 }
