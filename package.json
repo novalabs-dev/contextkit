@@ -1,0 +1,40 @@
+{
+  "name": "contextkit",
+  "version": "1.0.0",
+  "description": "Score and generate CLAUDE.md configs for AI coding assistants. Free CLI for Claude Code, Cursor, Codex, and Gemini CLI.",
+  "main": "lib/score.js",
+  "bin": {
+    "contextkit": "bin/contextkit.js"
+  },
+  "keywords": [
+    "claude-code",
+    "claude",
+    "cursor",
+    "codex",
+    "gemini",
+    "ai",
+    "config",
+    "claudemd",
+    "developer-tools",
+    "productivity"
+  ],
+  "author": "Nova Labs <support@nova-labs.dev> (https://nova-labs.dev)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/novalabs-dev/contextkit"
+  },
+  "homepage": "https://nova-labs.dev/contextkit",
+  "bugs": {
+    "url": "https://github.com/novalabs-dev/contextkit/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ]
+}

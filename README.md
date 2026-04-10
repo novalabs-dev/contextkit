@@ -2,18 +2,88 @@
 
 # ContextKit
 
-**Generate and analyze AI coding configs in seconds.**
+**Score, generate, and manage AI coding configs.**
 
-Free tools for Claude Code, Cursor, GitHub Copilot, and Gemini CLI. Generate production-ready config files or score your existing CLAUDE.md.
+CLI + web tools for Claude Code, Cursor, GitHub Copilot, and Gemini CLI. Score your CLAUDE.md from the terminal or generate production-ready configs in seconds.
 
-[**Generate your config**](https://nova-labs.dev/contextkit/generate) · [**Analyze your CLAUDE.md**](https://nova-labs.dev/contextkit/analyze) · [Website](https://nova-labs.dev/contextkit) · [Blog](https://nova-labs.dev/blog)
+[**Try the CLI**](#cli) · [**Web Generator**](https://nova-labs.dev/contextkit/generate) · [**Web Analyzer**](https://nova-labs.dev/contextkit/analyze) · [Website](https://nova-labs.dev/contextkit)
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/contextkit)](https://www.npmjs.com/package/contextkit)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fnova-labs.dev%2Fcontextkit%2Fgenerate&label=generator)](https://nova-labs.dev/contextkit/generate)
 
 </div>
 
 ---
+
+## CLI
+
+Score your CLAUDE.md from the terminal. Zero dependencies, instant results.
+
+```bash
+npx contextkit score
+```
+
+```
+─────────────────────────────────────────
+  CLAUDE.md Score  8/10 (Good)
+  ./CLAUDE.md
+─────────────────────────────────────────
+
+  Solid config with room for improvement.
+
+  Categories
+
+  Structure      ████████████████ 2/2
+  Architecture   ████████████████ 2/2
+  Conventions    ████████████████ 2/2
+  Testing        ████████████     1.5/2
+  Guardrails     ████████         1/2
+
+  Improvements
+
+  ! Add security rules (XSS, injection, etc.)
+
+  ✓ Good structure with clear sections
+  ✓ Tech stack and file structure documented
+  ✓ Clear conventions with specific rules
+  ✓ Testing framework and commands documented
+─────────────────────────────────────────
+```
+
+### Usage
+
+```bash
+# Score CLAUDE.md in current directory (auto-detects config files)
+npx contextkit score
+
+# Score a specific file
+npx contextkit score path/to/CLAUDE.md
+
+# Score a Cursor config
+npx contextkit score .cursorrules
+
+# Pipe content from stdin
+cat CLAUDE.md | npx contextkit score --stdin
+```
+
+**Auto-detection:** If no file is specified, the CLI looks for `CLAUDE.md`, `.claude/CLAUDE.md`, `.cursorrules`, `.cursor/rules`, `AGENTS.md`, `codex.md`, or `GEMINI.md` in the current directory.
+
+**Exit codes:** Returns `0` for scores >= 5/10, `1` for lower scores. Use in CI to enforce config quality.
+
+### CI example
+
+```yaml
+# .github/workflows/lint-config.yml
+name: Lint AI Config
+on: [pull_request]
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx contextkit score
+```
 
 ## The problem
 
@@ -27,104 +97,68 @@ Writing these from scratch means:
 
 And even if you already have a config file — how do you know if it's actually good?
 
-ContextKit solves both: **generate** new configs automatically, or **analyze** your existing ones to find what's missing.
+ContextKit solves both: **score** existing configs from the terminal or web, or **generate** new ones automatically.
 
-## Features
+## Web tools
 
 ### Generator
 
 | Feature | Description |
 |---------|-------------|
-| **5-step wizard** | Language → Framework → Project type → Conventions → Export |
-| **12+ languages** | TypeScript, Python, Go, Rust, Java, C#, Ruby, PHP, Swift, Kotlin, and more |
+| **5-step wizard** | Language, Framework, Project type, Conventions, Export |
+| **12+ languages** | TypeScript, Python, Go, Rust, Java, C#, Ruby, PHP, Swift, Kotlin |
 | **16+ frameworks** | React, Next.js, Vue, Nuxt, Svelte, Astro, Express, FastAPI, Django, Flask, Rails, Laravel, Spring, Gin |
 | **4 export formats** | `CLAUDE.md`, `.cursorrules`, `AGENTS.md`, `GEMINI.md` |
-| **Smart conventions** | Minimal comments, no premature abstractions, security-first, TDD, strict typing, functional style |
-| **Shareable configs** | Generate a URL that loads your exact configuration for teammates |
-| **Copy & download** | One-click clipboard copy or file download |
-| **No account needed** | Runs in your browser, no signup |
+| **Shareable configs** | URL-encoded state — share your exact configuration |
+| **No account needed** | Runs in your browser, nothing uploaded |
 
 ### Analyzer
 
 | Feature | Description |
 |---------|-------------|
-| **Score out of 10** | Get an overall quality score for your CLAUDE.md |
-| **5 categories** | Structure, Architecture, Conventions, Testing, Guardrails |
-| **Actionable feedback** | Specific suggestions for each category on what to add or improve |
-| **Paste or upload** | Drop in your existing CLAUDE.md content and get instant results |
-| **No account needed** | Runs in your browser, no signup |
+| **Score out of 10** | 5 categories: Structure, Architecture, Conventions, Testing, Guardrails |
+| **Actionable feedback** | Specific suggestions for each weak category |
+| **README badges** | Show your CLAUDE.md score in your repo |
+| **Shareable scores** | "My CLAUDE.md scored 8/10" — one-click share |
 
 ## Quick start
 
-### Generate a new config
+### From the terminal
 
-1. Open [nova-labs.dev/contextkit/generate](https://nova-labs.dev/contextkit/generate)
-2. Pick your language and framework
-3. Choose project type, testing, and conventions
-4. Select export format (CLAUDE.md, .cursorrules, AGENTS.md, or GEMINI.md)
-5. Copy to clipboard or download
+```bash
+# Install globally (optional)
+npm install -g contextkit
 
-### Analyze your existing CLAUDE.md
-
-1. Open [nova-labs.dev/contextkit/analyze](https://nova-labs.dev/contextkit/analyze)
-2. Paste your CLAUDE.md content
-3. Get a score out of 10 across 5 categories
-4. Follow the suggestions to improve your config
-
-## What it generates
-
-A structured config file with:
-- **Project context** — Language, framework, and project type
-- **Code style** — Conventions based on your selections
-- **Testing rules** — Framework-specific test commands and patterns
-- **Linting config** — Configured for your chosen tools
-- **File structure** — Framework-appropriate directory layout
-- **Tool-specific formatting** — Correct syntax for your AI coding tool
-
-### Example output (React + TypeScript)
-
-```markdown
-# Project Configuration
-
-## Overview
-- Language: TypeScript
-- Framework: React (Vite)
-- Type: Web Application
-
-## Code Style
-- Use functional components with hooks
-- Prefer named exports
-- Use TypeScript strict mode
-...
+# Or run directly
+npx contextkit score
 ```
 
-## Shareable configs
+### From the web
 
-Generate a config and click **Share** to get a URL like:
+1. [Generate a config](https://nova-labs.dev/contextkit/generate) — 5-step wizard, 30 seconds
+2. [Score your config](https://nova-labs.dev/contextkit/analyze) — paste and get a score
 
-```
-nova-labs.dev/contextkit/generate?lang=typescript&framework=react&type=webapp&...
-```
+## Scoring categories
 
-Send it to a teammate — they'll see your exact configuration pre-filled, ready to generate.
+| Category | What it checks | Max |
+|----------|---------------|-----|
+| **Structure** | Headings, sections, markdown formatting, length | 2 |
+| **Architecture** | Tech stack, project type, file structure, overview | 2 |
+| **Conventions** | Coding rules, do's and don'ts, naming, imports | 2 |
+| **Testing** | Test framework, commands, strategy, file locations | 2 |
+| **Guardrails** | Security rules, scope limits, read-first policy | 2 |
 
 ## Privacy
 
-**Zero data collection.** ContextKit has no backend. The entire wizard and analyzer run as client-side JavaScript. Nothing is sent to any server.
-
-## Tech stack
-
-- [Astro](https://astro.build/) + Tailwind CSS
-- Vanilla JavaScript (inline, no build dependencies)
-- Deployed on [Netlify](https://netlify.com/) (free tier)
+**Zero data collection.** The CLI reads files locally. The web tools run as client-side JavaScript. Nothing is sent to any server.
 
 ## Contributing
 
 Issues and PRs welcome. Especially helpful:
 - New language/framework templates
 - Convention suggestions
-- Export format improvements
 - Analyzer category refinements
+- CI integration examples
 
 ## License
 
@@ -133,5 +167,5 @@ MIT — see [LICENSE](LICENSE) for details.
 ---
 
 <div align="center">
-Built by <a href="https://nova-labs.dev">Nova Labs</a> — an AI-run company building developer tools.
+Built by <a href="https://nova-labs.dev">Nova Labs</a> — developer tools for AI-assisted coding.
 </div>
